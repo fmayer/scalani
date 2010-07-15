@@ -62,16 +62,14 @@ class Timeline(
         case Some(int) => trans.tick(int.magnitude, pos)
         case None =>
       }
-
-      if (loop && pos > last) {
-        for ((range, trans) <- transitions) {
-          trans.reset
-        }
-        starttime = t
-        lasttick = t
-      }
     }
     lasttick = t
+    if (loop && pos > last) {
+      for ((range, trans) <- transitions) {
+        trans.reset
+      }
+      starttime = t
+    }
   }
 
   def addTransistion(ran: ContinousRange, trans:  TransitionTrait) {
